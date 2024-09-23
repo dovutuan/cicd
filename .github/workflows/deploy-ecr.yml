@@ -5,6 +5,9 @@ on:
     branches:
       - master
 
+env:
+  ECR_REPOSITORY: be
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,6 +25,16 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Check if ECR repository exists and create if not
+        run: |
+          if ! aws ecr describe-repositories --repository-names ${{ env.ECR_REPOSITORY }} 2>/dev/null; then
+            echo "Repository does not exist. Creating..."
+            aws ecr create-repository --repository-name ${{ env.ECR_REPOSITORY }}
+            echo "Repository created successfully."
+          else
+            echo "Repository already exists. Skipping creation."
+          fi
 
       - name: Log in to Amazon ECR
         id: ecr-login
