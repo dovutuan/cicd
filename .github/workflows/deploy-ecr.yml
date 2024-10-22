@@ -15,8 +15,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: current branch
-        run: echo "${GITHUB_REF_NAME}"
+      - name: current branch 1
+        run: echo "current branch ${GITHUB_REF_NAME}"
+
+      - name: current branch 2
+        run: echo "current branch ${{ github.ref_name }}"
 
 #      - name: Set up image tag
 #        id: vars
