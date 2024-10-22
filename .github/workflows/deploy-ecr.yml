@@ -30,7 +30,7 @@ jobs:
           source $GITHUB_ENV
           
           echo "ECR_REPOSITORY=abc-${{ env.ENVIRONMENT }}-xyz-repository" >> $GITHUB_ENV
-          echo "ECR_REPOSITORY1=abc-${{ ENVIRONMENT }}-xyz-repository" >> $GITHUB_ENV
+          echo "ECR_REPOSITORY1=abc-${ENVIRONMENT}-xyz-repository" >> $GITHUB_ENV
 
 
 #      - name: Set up image tag
