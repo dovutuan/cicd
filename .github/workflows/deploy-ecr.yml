@@ -27,7 +27,9 @@ jobs:
             echo "ENVIRONMENT=production" >> $GITHUB_ENV
           fi
           
-          source $GITHUB_ENV
+          cat $GITHUB_ENV
+          
+          export $(cat $GITHUB_ENV | xargs)
           
           echo "ECR_REPOSITORY=abc-${ENVIRONMENT}-xyz-repository" >> $GITHUB_ENV
 
