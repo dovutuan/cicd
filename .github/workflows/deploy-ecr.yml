@@ -21,6 +21,15 @@ jobs:
       - name: current branch 2
         run: echo "current branch ${{ github.ref_name }}"
 
+      - name: test
+        run: |
+          if [ "${{ github.ref_name }}" == "master" ]; then
+            echo "ENVIRONMENT=production" >> $GITHUB_ENV
+          fi
+          
+          echo "ECR_REPOSITORY=abc-${{ env.ENVIRONMENT }}-xyz-repository" >> $GITHUB_ENV
+
+
 #      - name: Set up image tag
 #        id: vars
 #        run: echo "IMAGE_TAG=$(date +'%Y%m%d%H%M%S%3N')" >> $GITHUB_ENV
